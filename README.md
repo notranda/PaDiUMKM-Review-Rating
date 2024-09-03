@@ -4,21 +4,21 @@ Repositori ini berisi sistem review dan rating yang dirancang khusus untuk platf
 
 Teknologi yang Digunakan:
 
-Frontend: Next.js
-Backend: NestJS
+Frontend: Next.js\
+Backend: NestJS\
 Database: MongoDB
 
 Instruksi Setup:
-1. Clone Repo
+1. Clone Repo\
     git clone https://github.com/notranda/PaDiUMKM-Review-Rating.git
-    cd PaDiReviewRating
-2a. Backend
-    cd backend
-    npm install
-    npm run start:dev
-2b. Frontend
-    cd frontend
-    npm install
+    cd PaDiReviewRating\
+2. Backend\
+    cd backend\
+    npm install\
+    npm run start
+3. Frontend\
+    cd frontend\
+    npm install\
     npm run dev
-3. Run
-   http://localhost:3000
+4. Run\
+    http://localhost:3000
