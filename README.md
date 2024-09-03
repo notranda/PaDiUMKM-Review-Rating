@@ -11,7 +11,7 @@ Database: MongoDB
 Instruksi Setup:
 1. Clone Repo\
     git clone https://github.com/notranda/PaDiUMKM-Review-Rating.git \
-    cd PaDiReviewRating
+    cd PaDiUMKM-Review-Rating
 2. Backend\
     cd backend\
     npm install\
