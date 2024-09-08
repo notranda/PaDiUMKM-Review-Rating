@@ -1,4 +1,3 @@
-
 import { MagnifyingGlass } from "./MagnifyingGlass";
 
 export const Frame = () => {

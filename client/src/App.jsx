@@ -1,45 +1,42 @@
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import { ThemeProvider } from './context/ThemeContext';
+// import About from './components/About';
+// import Help from './components/Help';
+// import Media from './pages/Media';
+// import Contact from './pages/Contact';
+// import Navbar from './Navbar/Navbar';
+// import Login from './components/Login';
+import Footer from './components/Footer';
 import Header from './components/Header';
-import Rating from './components/Rating';
-import ReviewItem from './components/ReviewItem';
-import Sidebar from './components/Sidebar';
+import ViewReviews from './pages/ViewReviews';
 import './App.css';
+import AddReviews from './pages/AddReviews';
+import ReviewForm from './pages/ReviewForm';
 
-const App = () => {
+function App() {
+  const [isLogIn, setIsLogIn] = useState(false);
+  const handleLogin = () => setIsLogIn(true);
+  const handleLogout = () => setIsLogIn(false);
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <Header />
-      <div className="container mx-auto flex py-10">
-        {/* Bagian kiri (Rating dan Ulasan) */}
-        <div className="w-3/4 bg-white p-6 rounded-lg shadow-lg">
-          {/* <h2 className="text-xl font-bold mb-4">Review</h2> */}
-          <Rating />
-
-          <div className="mt-6">
-            <ReviewItem
-              name="Gunawan"
-              date="23 September"
-              rating={5}
-              text="Kualitas barangnya bagus, pelayanan penjual juga top banget!"
-              images={['/path-to-image']}
-            />
-            <ReviewItem
-              name="Roxi"
-              date="23 September"
-              rating={4}
-              text="Enak, porsi banyak, pengiriman cepat"
-              images={['/path-to-image1', '/path-to-image2', '/path-to-image3']}
-            />
-          </div>
-        </div>
-
-        {/* Bagian kanan (Sidebar) */}
-        <div className="w-1/4 pl-6">
-          <Sidebar />
-        </div>
-      </div>
-    </div>
+    // <ThemeProvider>
+    <Router>
+      <Header
+        isLogIn={isLogIn}
+        handleLogin={handleLogin}
+        handleLogout={handleLogout}
+      />
+      <Routes>
+        <Route path="/" element={<ViewReviews />} />
+        <Route path="/add-review" element={<AddReviews />} />
+        <Route path="/form-review" element={<ReviewForm />} />
+        {/* <Route path="/media" element={<Media />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} /> */}
+      </Routes>
+      <Footer />
+    </Router>
   );
-};
+}
 
 export default App;
