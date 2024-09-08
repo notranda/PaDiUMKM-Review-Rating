@@ -5,7 +5,6 @@ import notif from '../assets/images/navbar/notif.png';
 import shop from '../assets/images/navbar/shop.png';
 import message from '../assets/images/navbar/message.png';
 
-
 const Header = () => {
   return (
     <header className="header">
