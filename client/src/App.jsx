@@ -1,18 +1,11 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { ThemeProvider } from './context/ThemeContext';
-// import About from './components/About';
-// import Help from './components/Help';
-// import Media from './pages/Media';
-// import Contact from './pages/Contact';
-// import Navbar from './Navbar/Navbar';
-// import Login from './components/Login';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import ViewReviews from './pages/ViewReviews';
-import './App.css';
 import AddReviews from './pages/AddReviews';
 import ReviewForm from './pages/ReviewForm';
+import './App.css';
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
