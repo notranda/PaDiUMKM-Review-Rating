@@ -4,8 +4,8 @@ Repositori ini berisi sistem review dan rating yang dirancang khusus untuk platf
 
 Teknologi yang Digunakan:
 
-Frontend: Next.js\
-Backend: NestJS\
+Frontend: React.js\
+Backend: Express.js\
 Database: MongoDB
 
 Instruksi Setup:
