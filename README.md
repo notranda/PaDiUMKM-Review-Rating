@@ -13,12 +13,12 @@ Instruksi Setup:
     git clone https://github.com/notranda/PaDiUMKM-Review-Rating.git \
     cd PaDiUMKM-Review-Rating
 2. Backend\
-    cd backend\
+    cd server\
     npm install\
-    npm run start
+    npm start
 3. Frontend\
-    cd frontend\
+    cd client\
     npm install\
     npm run dev
 4. Run\
-    http://localhost:3000
+    http://localhost:3001 (backend)
