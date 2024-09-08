@@ -23,9 +23,6 @@ function App() {
         <Route path="/" element={<ViewReviews />} />
         <Route path="/add-review" element={<AddReviews />} />
         <Route path="/form-review" element={<ReviewForm />} />
-        {/* <Route path="/media" element={<Media />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} /> */}
       </Routes>
       <Footer />
     </Router>
