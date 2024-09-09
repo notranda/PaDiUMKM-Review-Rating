@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import hvs from '../assets/images/hvs.png';
 import pocky from '../assets/images/pocky.png';
 import kursi from '../assets/images/kursi.png';
@@ -7,16 +8,19 @@ import SidebarRev2 from '../components/SidebarRev2';
 const orders = [
   {
     id: 1,
+    userId: '0255',
     product: 'Pocky',
+    productId: '0003',
     quantity: '2pcs x Rp25.000',
     total: 'Rp70.481',
     status: 'Dalam Pengiriman',
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
-    image: pocky, // Tambahkan gambar sesuai
+    image: pocky, 
   },
   {
     id: 2,
+    userId: '0255',
     product: 'Kertas HVS',
     quantity: '2pcs x Rp75.000',
     total: 'Rp70.481',
@@ -27,6 +31,7 @@ const orders = [
   },
   {
     id: 3,
+    userId: '0255',
     product: 'Kursi Kantor',
     quantity: '2pcs x Rp250.000',
     total: 'Rp70.481',
@@ -38,6 +43,8 @@ const orders = [
 ];
 
 const AddReviews = () => {
+  const navigate = useNavigate(); 
+
   return (
     <div className="flex flex-row min-h-screen bg-gray-100">
       {/* Sidebar Kiri */}
@@ -73,7 +80,10 @@ const AddReviews = () => {
                   <button className="text-teal-800 border border-teal-600 px-3 py-1 rounded mr-2">
                     Lihat Detail
                   </button>
-                  <button className="text-white bg-teal-800 px-3 py-1 rounded">
+                  <button
+                    className="text-white bg-teal-800 px-3 py-1 rounded"
+                    onClick={() => navigate('/form-review', { state: { productId: order.productId, userId: order.userId } })}
+                  >
                     Terima Pesanan
                   </button>
                 </div>
@@ -83,7 +93,6 @@ const AddReviews = () => {
         ))}
       </div>
 
-      {/* Sidebar Kanan */}
       <div className="w-1/4">
         <SidebarRev2 />
       </div>
@@ -92,3 +101,5 @@ const AddReviews = () => {
 };
 
 export default AddReviews;
+
+

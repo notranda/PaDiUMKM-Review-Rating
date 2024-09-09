@@ -1,6 +1,17 @@
 const express = require("express");
 const reviewRoutes = express.Router();
 const moment = require("moment-timezone");
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); 
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname); 
+    }
+});
+
+const upload = multer({ storage: storage });
 const {
     getReviewsByProductId,
     getReviewById,
@@ -27,14 +38,17 @@ reviewRoutes.route("/review/:id").get(async (req, res) => {
     }
 });
 
-reviewRoutes.route("/review/add").post(async (req, res) => {
+reviewRoutes.post('/review/add', upload.single('media'), async (req, res) => {
+    const mediaPath = req.file ? `/uploads/${req.file.filename}` : null; 
     const newReview = {
         userId: req.body.userId,
         productId: req.body.productId,
-        rating: req.body.rating,
+        rating: parseInt(req.body.rating, 10),
         comment: req.body.comment,
-        timestamp: moment().tz("Asia/Jakarta").format() 
+        timestamp: moment().tz("Asia/Jakarta").format(),
+        media: mediaPath, 
     };
+
     try {
         const result = await createReview(newReview);
         res.status(201).json(result);
