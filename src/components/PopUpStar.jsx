@@ -15,6 +15,7 @@ const PopUpStar = ({ closePopup }) => {
         style={{ background: 'none', border: 'none' }}>
         ✕
       </button>
+      
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <img src={success} alt="Success" className="h-24 w-24" />
