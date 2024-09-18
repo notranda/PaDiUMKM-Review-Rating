@@ -5,7 +5,8 @@
 :root {
   line-height: 1.5;
   font-weight: 400;
-
+  --font-ubuntu: 'Ubuntu', sans-serif;
+  --font-open-sans: 'Open Sans', sans-serif;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -26,6 +27,7 @@ a:hover {
 }
 
 body {
+  font-family: var(--font-ubuntu);
   margin: 0;
   display: flex;
   place-items: center;
@@ -49,9 +51,6 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -72,21 +71,21 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #000000; 
-    background-color: #ffffff; 
+    color: #000000;
+    background-color: #ffffff;
   }
   a {
-    color: #0066cc; 
+    color: #0066cc;
   }
   a:hover {
-    color: #004d99; 
+    color: #004d99;
   }
   button {
-    background-color: #f0f0f0; 
-    color: #000000; 
+    background-color: #f0f0f0;
+    color: #000000;
   }
   button:hover {
-    border-color: #0066cc; 
-    background-color: #e0e0e0; 
+    border-color: #0066cc;
+    background-color: #e0e0e0;
   }
 }
