@@ -22,7 +22,11 @@ const SidebarRev = () => {
             />
             <NavLink
               to="/Pembayaran"
-              className="text-sm text-gray-600 group-hover:text-teal-500">
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-teal-500 text-sm'
+                  : 'text-gray-600 text-sm group-hover:text-teal-500'
+              }>
               Pembayaran
             </NavLink>
           </div>
@@ -34,8 +38,12 @@ const SidebarRev = () => {
               className="h-4 w-4 group-hover:filter group-hover:hue-rotate-180 group-hover:saturate-200"
             />
             <NavLink
-              to="/daftartranskasi"
-              className="text-sm text-gray-600 group-hover:text-teal-500">
+              to="/"
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-teal-500 text-sm'
+                  : 'text-gray-600 text-sm group-hover:text-teal-500'
+              }>
               Daftar Transaksi
             </NavLink>
           </div>
@@ -48,7 +56,11 @@ const SidebarRev = () => {
             />
             <NavLink
               to="/belilagi"
-              className="text-sm text-gray-600 group-hover:text-teal-500">
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-teal-500 text-sm'
+                  : 'text-gray-600 text-sm group-hover:text-teal-500'
+              }>
               Beli Lagi
             </NavLink>
           </div>
@@ -60,8 +72,12 @@ const SidebarRev = () => {
               className="h-4 w-4 group-hover:filter group-hover:hue-rotate-180 group-hover:saturate-200"
             />
             <NavLink
-              to="/ulasan"
-              className="text-sm text-gray-600 group-hover:text-teal-500">
+              to="/form-review"
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-teal-500 text-sm'
+                  : 'text-gray-600 text-sm group-hover:text-teal-500'
+              }>
               Ulasan
             </NavLink>
           </div>
@@ -78,7 +94,11 @@ const SidebarRev = () => {
           />
           <NavLink
             to="/daftartranskasi"
-            className="text-sm text-gray-600 group-hover:text-teal-500">
+            className={({ isActive }) =>
+              isActive
+                ? 'text-teal-500 text-sm'
+                : 'text-gray-600 text-sm group-hover:text-teal-500'
+            }>
             Kotak Pesan
           </NavLink>
         </div>
