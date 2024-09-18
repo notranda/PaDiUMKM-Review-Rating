@@ -5,7 +5,7 @@ import pocky from '../assets/images/pocky.png';
 import kursi from '../assets/images/kursi.png';
 import SidebarRev from '../components/SidebarRev';
 import SidebarRev2 from '../components/SidebarRev2';
-import PopUpStar from '../components/PopUpStar';
+import PopUpReceive from '../components/PopUpReceive';
 
 const orders = [
   {
@@ -112,7 +112,7 @@ const AddReviews = () => {
       {/* Popup */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <PopUpStar closePopup={closePopup} />
+          <PopUpReceive closePopup={closePopup} />
         </div>
       )}
     </div>
