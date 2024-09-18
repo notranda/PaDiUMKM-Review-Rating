@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+// import { useState } from 'react';
 import hvs from '../assets/images/hvs.png';
 import pocky from '../assets/images/pocky.png';
 import kursi from '../assets/images/kursi.png';
 import SidebarRev from '../components/SidebarRev';
 import SidebarRev2 from '../components/SidebarRev2';
-import PopUpUlasan from '../components/PopUpUlasan';
 
 const orders = [
   {
@@ -19,49 +18,52 @@ const orders = [
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: pocky,
+    hasReviewed: false, // Belum diberi ulasan
   },
   {
     id: 2,
     userId: '0255',
     product: 'Kertas HVS',
+    productId: '0002',
     quantity: '2pcs x Rp75.000',
     total: 'Rp70.481',
     status: 'Dalam Pengiriman',
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: hvs,
+    hasReviewed: true, // Sudah diberi ulasan
   },
   {
     id: 3,
     userId: '0255',
     product: 'Kursi Kantor',
+    productId: '0001',
     quantity: '2pcs x Rp250.000',
     total: 'Rp70.481',
     status: 'Dalam Pengiriman',
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: kursi,
+    hasReviewed: false, // Belum diberi ulasan
   },
 ];
 
 const ReviewsForm = () => {
   const navigate = useNavigate();
-  const [showPopup, setShowPopup] = useState(false);
 
-  const handleAcceptOrder = () => {
-    setShowPopup(true);
-    // Navigasi ke halaman lain
-    // navigate('/form-review', { state: { productId: order.productId, userId: order.userId } });
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
+  const handleReviewNavigation = (productId, hasReviewed) => {
+    // Navigasi ke halaman ViewReviews dengan query parameter productId
+    if (hasReviewed) {
+      navigate(`/viewreviews?productId=${productId}`);
+    } else {
+      navigate(`/form-review?productId=${productId}`);
+    }
   };
 
   return (
-    <div className="flex flex-row min-h-screen bg-gray-100">
+    <div className="flex flex-row min-h-screen bg-white">
       {/* Sidebar Kiri */}
-      <div className="w-1/4">
+      <div className="w-1/4 border-r border-gray-300">
         <SidebarRev />
       </div>
 
@@ -86,18 +88,24 @@ const ReviewsForm = () => {
               </div>
               <div className="text-right">
                 <p className="font-bold">{order.total}</p>
-                <span className="bg-gray-200 text-sm px-2 py-1 rounded">
-                  {order.status}
-                </span>
                 <div className="mt-2">
-                  <button className="text-teal-800 border border-teal-600 px-3 py-1 rounded mr-2">
-                    Lihat Detail
-                  </button>
-                  <button
-                    className="text-white bg-teal-800 px-3 py-1 rounded"
-                    onClick={handleAcceptOrder}>
-                    Terima Pesanan
-                  </button>
+                  {order.hasReviewed ? (
+                    <button
+                      className="bg-white hover:bg-white hover:text-teal-500 border border-teal-600 text-teal-600 px-3 py-1 rounded"
+                      onClick={() =>
+                        handleReviewNavigation(order.productId, true)
+                      }>
+                      Lihat Ulasan
+                    </button>
+                  ) : (
+                    <button
+                      className="text-white bg-teal-600 hover:bg-teal-700 hover:text-white border border-teal-600 px-3 py-1 rounded"
+                      onClick={() =>
+                        handleReviewNavigation(order.productId, false)
+                      }>
+                      Beri Ulasan
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -108,13 +116,6 @@ const ReviewsForm = () => {
       <div className="w-1/4">
         <SidebarRev2 />
       </div>
-
-      {/* Popup */}
-      {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <PopUpUlasan closePopup={closePopup} />
-        </div>
-      )}
     </div>
   );
 };
