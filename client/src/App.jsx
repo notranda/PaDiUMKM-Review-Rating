@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -8,21 +8,14 @@ import ReviewForm from './pages/ReviewForm';
 import './App.css';
 
 function App() {
-  const [isLogIn, setIsLogIn] = useState(false);
-  const handleLogin = () => setIsLogIn(true);
-  const handleLogout = () => setIsLogIn(false);
   return (
-    // <ThemeProvider>
     <Router>
-      <Header
-        isLogIn={isLogIn}
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
-      />
+      <Header />
       <Routes>
-        <Route path="/" element={<ViewReviews />} />
+        <Route path="/" element={<AddReviews />} />
         <Route path="/add-review" element={<AddReviews />} />
         <Route path="/form-review" element={<ReviewForm />} />
+        <Route path="/view" element={<ViewReviews />} />
       </Routes>
       <Footer />
     </Router>
