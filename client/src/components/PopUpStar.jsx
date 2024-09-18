@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import success from '../assets/images/success.png';
 
@@ -15,7 +16,7 @@ const PopUpStar = ({ closePopup }) => {
         style={{ background: 'none', border: 'none' }}>
         ✕
       </button>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <img src={success} alt="Success" className="h-24 w-24" />
@@ -39,6 +40,10 @@ const PopUpStar = ({ closePopup }) => {
       </div>
     </div>
   );
+};
+
+PopUpStar.propTypes = {
+  closePopup: PropTypes.func.isRequired,
 };
 
 export default PopUpStar;
