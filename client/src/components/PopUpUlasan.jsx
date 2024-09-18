@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment-timezone';
 const API_URL = import.meta.env.VITE_API_URL;
 
-function ReviewForm() {
+function PopUpUlasan() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -195,12 +195,12 @@ function ReviewForm() {
             {/* Button Section */}
             <div className="flex justify-between">
               <button
-                className="bg-white hover:bg-teal-900 border border-teal-700 text-gray-800 font-bold py-2 px-4 rounded transition duration-300"
+                className="bg-white hover:bg-white hover:text-teal-500 border border-teal-600 text-teal-600 px-3 py-1 rounded"
                 onClick={() => navigate(-1)}>
                 Nanti Saja
               </button>
               <button
-                className="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded transition duration-300"
+                className="text-white bg-teal-600 hover:bg-teal-700 hover:text-white border border-teal-600 px-3 py-1 rounded"
                 onClick={handleSubmit}>
                 Konfirmasi
               </button>
@@ -212,4 +212,4 @@ function ReviewForm() {
   );
 }
 
-export default ReviewForm;
+export default PopUpUlasan;
