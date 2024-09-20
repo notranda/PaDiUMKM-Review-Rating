@@ -1,11 +1,10 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import hvs from '../assets/images/hvs.png';
 import pocky from '../assets/images/pocky.png';
 import kursi from '../assets/images/kursi.png';
 import SidebarRev from '../components/SidebarRev';
 import SidebarRev2 from '../components/SidebarRev2';
-import PopUpStar from '../components/PopUpStar';
+import PopUpReceive from '../components/PopUpReceive';
 
 const orders = [
   {
@@ -45,23 +44,20 @@ const orders = [
 ];
 
 const AddReviews = () => {
-  const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
   const handleAcceptOrder = () => {
     setShowPopup(true);
-    // Navigasi ke halaman lain
-    // navigate('/form-review', { state: { productId: order.productId, userId: order.userId } });
   };
 
   const closePopup = () => {
-    setShowPopup(false);
+    setShowPopup(false); // Menutup popup
   };
 
   return (
-    <div className="flex flex-row min-h-screen bg-gray-100">
+    <div className="flex flex-row min-h-screen bg-white">
       {/* Sidebar Kiri */}
-      <div className="w-1/4">
+      <div className="w-1/4 border-r border-gray-300">
         <SidebarRev />
       </div>
 
@@ -94,7 +90,7 @@ const AddReviews = () => {
                     Lihat Detail
                   </button>
                   <button
-                    className="text-white bg-teal-800 px-3 py-1 rounded"
+                    className="text-white bg-teal-600 hover:bg-teal-700 hover:text-white border border-teal-600 px-3 py-1 rounded"
                     onClick={handleAcceptOrder}>
                     Terima Pesanan
                   </button>
@@ -106,13 +102,14 @@ const AddReviews = () => {
       </div>
 
       <div className="w-1/4">
+        <div className="text-bold font-black mb-4">Yang Perlu Dilakukan</div>
         <SidebarRev2 />
       </div>
 
       {/* Popup */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <PopUpStar closePopup={closePopup} />
+          <PopUpReceive closePopup={closePopup} />
         </div>
       )}
     </div>

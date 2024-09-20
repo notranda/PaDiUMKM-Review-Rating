@@ -43,7 +43,7 @@
 
 // export default ViewReviews;
 
-import { useLocation } from 'react-router-dom'; 
+import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Review from '../components/Review';
 import Sidebar from '../components/Sidebar';
@@ -52,7 +52,7 @@ import Rating from '../components/Rating';
 const ViewReviews = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const productId = queryParams.get('productId'); 
+  const productId = queryParams.get('productId');
   const [filter, setFilter] = useState('Semua');
 
   return (
@@ -73,5 +73,3 @@ const ViewReviews = () => {
 };
 
 export default ViewReviews;
-
-
