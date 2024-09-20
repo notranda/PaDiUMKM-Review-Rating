@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import profiler from '../assets/images/profiler.png';
+import profile from '../assets/images/profile.png';
 import transaction from '../assets/images/transaction.png';
 import reload from '../assets/images/reload.png';
 import ulasan from '../assets/images/ulasan.png';
@@ -16,7 +16,7 @@ const SidebarRev = () => {
         <div className="flex flex-col space-y-4">
           <div className="flex items-center space-x-4 cursor-pointer group">
             <img
-              src={profiler}
+              src={profile}
               alt="profiler"
               className="h-4 w-4 group-hover:filter group-hover:hue-rotate-180 group-hover:saturate-200"
             />

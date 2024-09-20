@@ -1,11 +1,11 @@
-import success from '../assets/images/success.png';
+import sucess from '../assets/images/sucess.png';
 
 const PopUpSuccess = () => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg text-center relative w-1/3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <img src={success} alt="Sukses" className="h-20 w-20" />
+          <img src={sucess} alt="Sukses" className="h-20 w-20" />
           <div className="ml-4 text-left">
             <p className="font-bold text-xl">Terima Pesanan?</p>
             <div className="mt-4">

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import success from '../assets/images/success.png';
+import sucess from '../assets/images/sucess.png';
 
 const PopUpStar = ({ closePopup }) => {
   const [rating, setRating] = useState(0);
@@ -19,7 +19,7 @@ const PopUpStar = ({ closePopup }) => {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <img src={success} alt="Success" className="h-24 w-24" />
+          <img src={sucess} alt="Success" className="h-24 w-24" />
           <div className="ml-4 text-left">
             <p className="font-bold text-xl">Berhasil</p>
             <p className="text-md mt-4">Puas dengan Pesananmu?</p>
