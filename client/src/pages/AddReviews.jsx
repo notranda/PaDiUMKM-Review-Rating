@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import hvs from '../assets/images/hvs.png';
 import pocky from '../assets/images/pocky.png';
 import kursi from '../assets/images/kursi.png';
@@ -9,7 +10,7 @@ import PopUpStar from '../components/PopUpStar';
 import PopUpUlasan from '../components/PopUpUlasan'; 
 import PopUpSuccess from '../components/PopUpSuccess';
 
-const orders = [
+const initialOrders = [
   {
     id: 1,
     userId: '0255',
@@ -21,6 +22,7 @@ const orders = [
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: pocky,
+    hasReviewed: false,
   },
   {
     id: 2,
@@ -32,6 +34,7 @@ const orders = [
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: hvs,
+    hasReviewed: false,
   },
   {
     id: 3,
@@ -43,16 +46,20 @@ const orders = [
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: kursi,
+    hasReviewed: false,
   },
 ];
 
 const AddReviews = () => {
+  const [orders, setOrders] = useState(initialOrders);
   const [showPopup, setShowPopup] = useState(false); 
   const [showStarPopup, setShowStarPopup] = useState(false); 
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showReviewPopup, setShowReviewPopup] = useState(false); 
   const [selectedOrder, setSelectedOrder] = useState(null); 
   const [rating, setRating] = useState(0); 
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleAcceptOrder = (order) => {
     setSelectedOrder(order); 
@@ -65,9 +72,7 @@ const AddReviews = () => {
   };
 
   const handleConfirm = () => {
-    
     setShowPopup(false);
-   
     setShowStarPopup(true);
   };
 
@@ -78,11 +83,25 @@ const AddReviews = () => {
   };
 
   const closeReviewPopup = () => {
-    setShowReviewPopup(false); 
+    setShowReviewPopup(false);
+  };
+
+  const handleReviewSuccess = () => {
+    setOrders(prevOrders =>
+      prevOrders.map(order =>
+        order.id === selectedOrder.id ? { ...order, hasReviewed: true } : order
+      )
+    );
+    setShowReviewPopup(false);
+    setShowSuccessPopup(true);
   };
 
   const closeSuccessPopup = () => {
     setShowSuccessPopup(false);
+  };
+
+  const viewReview = (productId) => {
+    navigate(`/viewreviews?productId=${productId}`);
   };
 
   return (
@@ -120,11 +139,19 @@ const AddReviews = () => {
                   <button className="text-teal-800 border border-teal-600 px-3 py-1 rounded mr-2">
                     Lihat Detail
                   </button>
-                  <button
-                    className="text-white bg-teal-600 hover:bg-teal-700 hover:text-white border border-teal-600 px-3 py-1 rounded"
-                    onClick={() => handleAcceptOrder(order)}> {/* Pass the order data */}
-                    Terima Pesanan
-                  </button>
+                  {order.hasReviewed ? (
+                    <button
+                      className="text-teal-800 border border-teal-600 px-3 py-1 rounded mr-2"
+                      onClick={() => viewReview(order.productId)}> {/* Redirect to view reviews */}
+                      Lihat Ulasan
+                    </button>
+                  ) : (
+                    <button
+                      className="text-white bg-teal-600 hover:bg-teal-700 hover:text-white border border-teal-600 px-3 py-1 rounded"
+                      onClick={() => handleAcceptOrder(order)}>
+                      Terima Pesanan
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -142,8 +169,8 @@ const AddReviews = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <PopUpReceive
             closePopup={closePopup}
-            onConfirm={handleConfirm} // Confirm handler
-            order={selectedOrder} // Pass the selected order to PopUpReceive
+            onConfirm={handleConfirm}
+            order={selectedOrder}
           />
         </div>
       )}
@@ -152,8 +179,8 @@ const AddReviews = () => {
       {showStarPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <PopUpStar
-            closePopup={() => setShowStarPopup(false)} 
-            onConfirm={handleStarConfirm} 
+            closePopup={() => setShowStarPopup(false)}
+            onConfirm={handleStarConfirm}
           />
         </div>
       )}
@@ -162,19 +189,20 @@ const AddReviews = () => {
       {showReviewPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <PopUpUlasan
-            closePopup={closeReviewPopup} 
-            order={selectedOrder} 
-            rating={rating} 
-            productId={selectedOrder?.productId} 
+            closePopup={closeReviewPopup}
+            order={selectedOrder}
+            rating={rating}
+            productId={selectedOrder?.productId}
             userId={selectedOrder?.userId}
-            onSuccess={() => setShowSuccessPopup(true)}
+            onSuccess={handleReviewSuccess}
           />
         </div>
       )}
+
       {/* PopUpSuccess */}
       {showSuccessPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <PopUpSuccess closePopup={closeSuccessPopup} /> 
+          <PopUpSuccess closePopup={closeSuccessPopup} />
         </div>
       )}
     </div>
