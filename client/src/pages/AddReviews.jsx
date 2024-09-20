@@ -5,6 +5,9 @@ import kursi from '../assets/images/kursi.png';
 import SidebarRev from '../components/SidebarRev';
 import SidebarRev2 from '../components/SidebarRev2';
 import PopUpReceive from '../components/PopUpReceive';
+import PopUpStar from '../components/PopUpStar'; 
+import PopUpUlasan from '../components/PopUpUlasan'; 
+import PopUpSuccess from '../components/PopUpSuccess';
 
 const orders = [
   {
@@ -44,14 +47,42 @@ const orders = [
 ];
 
 const AddReviews = () => {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); 
+  const [showStarPopup, setShowStarPopup] = useState(false); 
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showReviewPopup, setShowReviewPopup] = useState(false); 
+  const [selectedOrder, setSelectedOrder] = useState(null); 
+  const [rating, setRating] = useState(0); 
 
-  const handleAcceptOrder = () => {
-    setShowPopup(true);
+  const handleAcceptOrder = (order) => {
+    setSelectedOrder(order); 
+    setShowPopup(true); 
   };
 
   const closePopup = () => {
-    setShowPopup(false); // Menutup popup
+    setShowPopup(false); 
+    setSelectedOrder(null); 
+  };
+
+  const handleConfirm = () => {
+    
+    setShowPopup(false);
+   
+    setShowStarPopup(true);
+  };
+
+  const handleStarConfirm = (selectedRating) => {
+    setRating(selectedRating); 
+    setShowStarPopup(false); 
+    setShowReviewPopup(true);
+  };
+
+  const closeReviewPopup = () => {
+    setShowReviewPopup(false); 
+  };
+
+  const closeSuccessPopup = () => {
+    setShowSuccessPopup(false);
   };
 
   return (
@@ -91,7 +122,7 @@ const AddReviews = () => {
                   </button>
                   <button
                     className="text-white bg-teal-600 hover:bg-teal-700 hover:text-white border border-teal-600 px-3 py-1 rounded"
-                    onClick={handleAcceptOrder}>
+                    onClick={() => handleAcceptOrder(order)}> {/* Pass the order data */}
                     Terima Pesanan
                   </button>
                 </div>
@@ -106,10 +137,44 @@ const AddReviews = () => {
         <SidebarRev2 />
       </div>
 
-      {/* Popup */}
+      {/* PopUpReceive */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <PopUpReceive closePopup={closePopup} />
+          <PopUpReceive
+            closePopup={closePopup}
+            onConfirm={handleConfirm} // Confirm handler
+            order={selectedOrder} // Pass the selected order to PopUpReceive
+          />
+        </div>
+      )}
+
+      {/* PopUpStar */}
+      {showStarPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <PopUpStar
+            closePopup={() => setShowStarPopup(false)} 
+            onConfirm={handleStarConfirm} 
+          />
+        </div>
+      )}
+
+      {/* PopUpUlasan */}
+      {showReviewPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <PopUpUlasan
+            closePopup={closeReviewPopup} 
+            order={selectedOrder} 
+            rating={rating} 
+            productId={selectedOrder?.productId} 
+            userId={selectedOrder?.userId}
+            onSuccess={() => setShowSuccessPopup(true)}
+          />
+        </div>
+      )}
+      {/* PopUpSuccess */}
+      {showSuccessPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <PopUpSuccess closePopup={closeSuccessPopup} /> 
         </div>
       )}
     </div>

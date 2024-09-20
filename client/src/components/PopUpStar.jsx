@@ -2,10 +2,13 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import success from '../assets/images/success.png';
 
-const PopUpStar = ({ closePopup }) => {
+const PopUpStar = ({ closePopup, onConfirm }) => {
   const [rating, setRating] = useState(0);
+  const [hoveredRating, setHoveredRating] = useState(0); 
+
   const handleRating = (star) => {
     setRating(star);
+    onConfirm(star);
   };
 
   return (
@@ -28,8 +31,10 @@ const PopUpStar = ({ closePopup }) => {
                 <span
                   key={star}
                   onClick={() => handleRating(star)}
+                  onMouseEnter={() => setHoveredRating(star)} 
+                  onMouseLeave={() => setHoveredRating(0)} 
                   className={`cursor-pointer text-3xl ${
-                    star <= rating ? 'text-yellow-500' : 'text-gray-300'
+                    star <= (hoveredRating || rating) ? 'text-yellow-500' : 'text-gray-300'
                   }`}>
                   ★
                 </span>
@@ -44,6 +49,7 @@ const PopUpStar = ({ closePopup }) => {
 
 PopUpStar.propTypes = {
   closePopup: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 export default PopUpStar;

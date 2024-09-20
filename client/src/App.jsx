@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<AddReviews />} />
         <Route path="/add-review" element={<AddReviews />} />
         <Route path="/form-review" element={<ReviewForm />} />
-        <Route path="/view" element={<ViewReviews />} />
+        <Route path="/viewreviews" element={<ViewReviews />} />
       </Routes>
       <Footer />
     </Router>

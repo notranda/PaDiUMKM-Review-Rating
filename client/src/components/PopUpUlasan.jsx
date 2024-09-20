@@ -1,22 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 const API_URL = import.meta.env.VITE_API_URL;
 
-function PopUpUlasan() {
-  const location = useLocation();
+const PopUpUlasan = ({ closePopup, onSuccess, rating, productId, userId }) => {
   const navigate = useNavigate();
-
-  const { productId, userId } = location.state || {};
-
-  const [rating, setRating] = useState(5);
   const [likes, setLikes] = useState([]);
   const [comment, setComment] = useState('');
   const [media, setMedia] = useState(null);
-
-  const handleRatingChange = (newRating) => {
-    setRating(newRating);
-  };
+  useEffect(() => {
+  }, [rating]);
 
   const handleLikeChange = (like) => {
     if (likes.includes(like)) {
@@ -42,7 +36,7 @@ function PopUpUlasan() {
     const formData = new FormData();
     formData.append('userId', userId);
     formData.append('productId', productId);
-    formData.append('rating', rating);
+    formData.append('rating', rating); 
     formData.append('comment', comment);
     formData.append('timestamp', timestamp);
     if (media) {
@@ -56,8 +50,8 @@ function PopUpUlasan() {
       });
 
       if (response.ok) {
-        alert('Review berhasil dikirim!');
-        navigate(`/?productId=${productId}`);
+        onSuccess(); 
+        closePopup();
       } else {
         const errorData = await response.json();
         alert(`Gagal mengirim review: ${errorData.message}`);
@@ -72,19 +66,16 @@ function PopUpUlasan() {
     <div className="bg-white p-5 rounded-lg shadow-lg text-center relative w-2/5 h-auto">
       <div className="flex font-bold font-lg justify-between">Ulasan</div>
 
-      {/* Rating Section */}
+      {/* Display Rating Section */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="text-center mt-4">
-            <p className="font-bold text-xl mb-4">Sangat Puas</p>
+            <p className="font-bold text-xl mb-4">Rating Anda</p>
             <div className="flex justify-center items-center space-x-2 mb-5">
               {[1, 2, 3, 4, 5].map((num) => (
                 <span
                   key={num}
-                  className={`cursor-pointer text-3xl ${
-                    rating >= num ? 'text-yellow-500' : 'text-gray-300'
-                  }`}
-                  onClick={() => handleRatingChange(num)}>
+                  className={`text-3xl ${rating >= num ? 'text-yellow-500' : 'text-gray-300'}`}>
                   ★
                 </span>
               ))}
@@ -196,7 +187,7 @@ function PopUpUlasan() {
             <div className="flex justify-between">
               <button
                 className="bg-white hover:bg-white hover:text-teal-500 border border-teal-600 text-teal-600 px-3 py-1 rounded"
-                onClick={() => navigate(-1)}>
+                onClick={closePopup}>
                 Nanti Saja
               </button>
               <button
@@ -211,5 +202,10 @@ function PopUpUlasan() {
     </div>
   );
 }
+
+PopUpUlasan.propTypes = {
+  rating: PropTypes.number.isRequired,
+  closePopup: PropTypes.func.isRequired,
+};
 
 export default PopUpUlasan;

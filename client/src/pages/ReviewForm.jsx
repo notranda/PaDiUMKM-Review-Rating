@@ -18,7 +18,7 @@ const orders = [
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: pocky,
-    hasReviewed: false, // Belum diberi ulasan
+    hasReviewed: false, 
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const orders = [
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: hvs,
-    hasReviewed: true, // Sudah diberi ulasan
+    hasReviewed: true, 
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const orders = [
     date: '12 Mei 2023, 11:24 WIB',
     orderId: 'PO-2023-5-12-5238706',
     image: kursi,
-    hasReviewed: false, // Belum diberi ulasan
+    hasReviewed: false, 
   },
 ];
 
@@ -52,7 +52,6 @@ const ReviewsForm = () => {
   const navigate = useNavigate();
 
   const handleReviewNavigation = (productId, hasReviewed) => {
-    // Navigasi ke halaman ViewReviews dengan query parameter productId
     if (hasReviewed) {
       navigate(`/viewreviews?productId=${productId}`);
     } else {

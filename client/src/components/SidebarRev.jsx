@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import profiler from '../assets/images/profiler.png';
+import profiler from '../assets/images/profile.png';
 import transaction from '../assets/images/transaction.png';
 import reload from '../assets/images/reload.png';
 import ulasan from '../assets/images/ulasan.png';

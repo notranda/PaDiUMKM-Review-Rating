@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import receive from '../assets/images/receive.png';
 
-const PopUpReceive = ({ closePopup, onConfirm }) => {
+const PopUpReceive = ({ closePopup, onConfirm, order }) => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg text-center relative w-1/3">
       <div className="flex items-center justify-between">
@@ -24,7 +24,7 @@ const PopUpReceive = ({ closePopup, onConfirm }) => {
                 </button>
                 <button
                   className="text-white bg-teal-600 hover:bg-teal-700 hover:text-white border border-teal-600 px-4 py-2 rounded"
-                  onClick={onConfirm}>
+                  onClick={onConfirm}> 
                   Konfirmasi
                 </button>
               </div>
@@ -39,6 +39,7 @@ const PopUpReceive = ({ closePopup, onConfirm }) => {
 PopUpReceive.propTypes = {
   closePopup: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  order: PropTypes.object.isRequired, 
 };
 
 export default PopUpReceive;
