@@ -1,23 +1,28 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const PopUpUlasan = ({ closePopup, onSuccess, rating, productId, userId }) => {
   const navigate = useNavigate();
-  const [likes, setLikes] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
   const [comment, setComment] = useState('');
   const [media, setMedia] = useState(null);
-  useEffect(() => {
-  }, [rating]);
 
-  const handleLikeChange = (like) => {
-    if (likes.includes(like)) {
-      setLikes(likes.filter((l) => l !== like));
-    } else {
-      setLikes([...likes, like]);
-    }
+  // List of sentences for each like option
+  const likeOptions = [
+    { key: 'responseSeller', label: 'Respons Penjual', sentence: 'Respons penjual sangat cepat.' },
+    { key: 'kecepatanPengiriman', label: 'Kecepatan Pengiriman', sentence: 'Pengiriman sangat cepat.' },
+    { key: 'kualitasProduk', label: 'Kualitas Produk', sentence: 'Kualitas produk sangat baik.' },
+    { key: 'kemasanProduk', label: 'Kemasan Produk', sentence: 'Kemasan produk rapi dan aman.' },
+    { key: 'kesesuaianProduk', label: 'Kesesuaian Produk yang dikirim', sentence: 'Produk sesuai dengan pesanan.' },
+  ];
+
+  // Handle button click to update the comment with the new sentence
+  const handleLikeClick = (option) => {
+    setSelectedOption(option.key); // Set the selected option
+    setComment(option.sentence); // Replace the comment with the new sentence
   };
 
   const handleCommentChange = (event) => {
@@ -36,7 +41,7 @@ const PopUpUlasan = ({ closePopup, onSuccess, rating, productId, userId }) => {
     const formData = new FormData();
     formData.append('userId', userId);
     formData.append('productId', productId);
-    formData.append('rating', rating); 
+    formData.append('rating', rating);
     formData.append('comment', comment);
     formData.append('timestamp', timestamp);
     if (media) {
@@ -50,7 +55,7 @@ const PopUpUlasan = ({ closePopup, onSuccess, rating, productId, userId }) => {
       });
 
       if (response.ok) {
-        onSuccess(); 
+        onSuccess();
         closePopup();
       } else {
         const errorData = await response.json();
@@ -81,76 +86,24 @@ const PopUpUlasan = ({ closePopup, onSuccess, rating, productId, userId }) => {
               ))}
             </div>
 
-            {/* Like Section */}
+            {/* Like Button Section */}
             <div className="mb-4">
               <label className="block text-sm mb-5 font-medium text-gray-700">
                 Apa yang Anda sukai?
               </label>
               <div className="flex flex-wrap gap-2 mt-2">
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-5 w-5 text-blue-600"
-                    value="responseSeller"
-                    checked={likes.includes('responseSeller')}
-                    onChange={() => handleLikeChange('responseSeller')}
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700">
-                    Respons Penjual
-                  </span>
-                </label>
-
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-5 w-5 text-blue-600"
-                    value="kecepatanPengiriman"
-                    checked={likes.includes('kecepatanPengiriman')}
-                    onChange={() => handleLikeChange('kecepatanPengiriman')}
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700">
-                    Kecepatan Pengiriman
-                  </span>
-                </label>
-
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-5 w-5 text-blue-600"
-                    value="kualitasProduk"
-                    checked={likes.includes('kualitasProduk')}
-                    onChange={() => handleLikeChange('kualitasProduk')}
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700">
-                    Kualitas Produk
-                  </span>
-                </label>
-
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-5 w-5 text-blue-600"
-                    value="kemasanProduk"
-                    checked={likes.includes('kemasanProduk')}
-                    onChange={() => handleLikeChange('kemasanProduk')}
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700">
-                    Kemasan Produk
-                  </span>
-                </label>
-
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-5 w-5 text-blue-600"
-                    value="kesesuaianProduk"
-                    checked={likes.includes('kesesuaianProduk')}
-                    onChange={() => handleLikeChange('kesesuaianProduk')}
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700">
-                    Kesesuaian Produk yang dikirim
-                  </span>
-                </label>
+                {likeOptions.map((option) => (
+                  <button
+                    key={option.key}
+                    className={`text-white px-3 py-1 rounded ${
+                      selectedOption === option.key
+                        ? 'bg-teal-700'
+                        : 'bg-teal-600 hover:bg-teal-700'
+                    }`}
+                    onClick={() => handleLikeClick(option)}>
+                    {option.label}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -201,7 +154,7 @@ const PopUpUlasan = ({ closePopup, onSuccess, rating, productId, userId }) => {
       </div>
     </div>
   );
-}
+};
 
 PopUpUlasan.propTypes = {
   rating: PropTypes.number.isRequired,

@@ -20,7 +20,6 @@ const initialOrders = [
     total: 'Rp70.481',
     status: 'Dalam Pengiriman',
     date: '12 Mei 2023, 11:24 WIB',
-    orderId: 'PO-2023-5-12-5238706',
     image: pocky,
     hasReviewed: false,
   },
@@ -32,7 +31,6 @@ const initialOrders = [
     total: 'Rp70.481',
     status: 'Dalam Pengiriman',
     date: '12 Mei 2023, 11:24 WIB',
-    orderId: 'PO-2023-5-12-5238706',
     image: hvs,
     hasReviewed: false,
   },
@@ -44,7 +42,6 @@ const initialOrders = [
     total: 'Rp70.481',
     status: 'Dalam Pengiriman',
     date: '12 Mei 2023, 11:24 WIB',
-    orderId: 'PO-2023-5-12-5238706',
     image: kursi,
     hasReviewed: false,
   },
@@ -89,7 +86,9 @@ const AddReviews = () => {
   const handleReviewSuccess = () => {
     setOrders(prevOrders =>
       prevOrders.map(order =>
-        order.id === selectedOrder.id ? { ...order, hasReviewed: true } : order
+        order.id === selectedOrder.id
+          ? { ...order, hasReviewed: true, status: '' } // Set status to empty after review
+          : order
       )
     );
     setShowReviewPopup(false);
@@ -132,9 +131,11 @@ const AddReviews = () => {
               </div>
               <div className="text-right">
                 <p className="font-bold">{order.total}</p>
-                <span className="bg-gray-200 text-sm px-2 py-1 rounded">
-                  {order.status}
-                </span>
+                {order.status && (
+                  <span className="bg-gray-200 text-sm px-2 py-1 rounded">
+                    {order.status}
+                  </span>
+                )}
                 <div className="mt-2">
                   <button className="text-teal-800 border border-teal-600 px-3 py-1 rounded mr-2">
                     Lihat Detail

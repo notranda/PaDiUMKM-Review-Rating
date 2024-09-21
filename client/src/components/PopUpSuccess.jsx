@@ -1,4 +1,4 @@
-import success from '../assets/images/success.png';
+import sucess from '../assets/images/success.png';
 
 const PopUpSuccess = ({ closePopup }) => {
   return (
@@ -11,7 +11,7 @@ const PopUpSuccess = ({ closePopup }) => {
       </button>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <img src={success} alt="Sukses" className="h-20 w-20" />
+          <img src={sucess} alt="Sukses" className="h-20 w-20" />
           <div className="ml-4 text-left">
             <p className="font-bold text-xl">Terima Kasih!</p>
             <div className="mt-4">
