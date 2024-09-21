@@ -22,6 +22,7 @@ Instruksi Setup:
     npm run dev
 4. Run\
     http://localhost:3001 (backend)
+    http://localhost:5173 (frontend)
 
 # React + Vite
 
